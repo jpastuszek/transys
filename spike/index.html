@@ -1,196 +1,284 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>TranSys</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<head>
+<meta charset="utf-8">
+<title>TranSys</title>
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+<meta
+    name="description"
+    content=""
+>
+<meta
+    name="author"
+    content=""
+>
+<!-- Le styles -->
+<link
+    href="../bootstrap/css/bootstrap.css"
+    rel="stylesheet"
+>
+<style type="text/css">
+body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
 
-    <!-- Le styles -->
-    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-      .sidebar-nav {
-        padding: 9px 0;
-      }
-    </style>
-    <link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
+.sidebar-nav {
+    padding: 9px 0;
+}
+</style>
+<link
+    href="../bootstrap/css/bootstrap-responsive.css"
+    rel="stylesheet"
+>
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-
-    <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="../bootstrap/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../bootstrap/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../bootstrap/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="../bootstrap/ico/apple-touch-icon-57-precomposed.png">
-  </head>
-
-  <body>
-
+<!-- Le fav and touch icons -->
+<link
+    rel="shortcut icon"
+    href="../bootstrap/ico/favicon.ico"
+>
+<link
+    rel="apple-touch-icon-precomposed"
+    sizes="114x114"
+    href="../bootstrap/ico/apple-touch-icon-114-precomposed.png"
+>
+<link
+    rel="apple-touch-icon-precomposed"
+    sizes="72x72"
+    href="../bootstrap/ico/apple-touch-icon-72-precomposed.png"
+>
+<link
+    rel="apple-touch-icon-precomposed"
+    href="../bootstrap/ico/apple-touch-icon-57-precomposed.png"
+>
+</head>
+<body>
     <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="#">TranSys</a>
-          <div class="nav-collapse">
-            <ul class="nav">
-              <li class="active"><a href="#">Zlecenia</a></li>
-              <li><a href="zleceniodawcy.html">Zleceniodawcy</a></li>
-              <li><a href="towary.html">Towary</a></li>
-							<li><a href="magazyny.html">Magazyny</a></li>
-							<li><a href="kurierzy.html">Kurierzy</a></li>
-							<li><a href="raporty.html">Raporty</a></li>
-            </ul>
-            <p class="navbar-text pull-right">Zalogowany jako <a href="#">Frank Sinatra</a></p>
-          </div><!--/.nav-collapse -->
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <a
+                    class="btn btn-navbar"
+                    data-toggle="collapse"
+                    data-target=".nav-collapse"
+                > <span class="icon-bar"></span> <span class="icon-bar"></span> <span
+                    class="icon-bar"
+                ></span>
+                </a> <a
+                    class="brand"
+                    href="#"
+                >TranSys</a>
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="active"><a href="#">Zlecenia</a></li>
+                        <li><a href="zleceniodawcy.html">Zleceniodawcy</a></li>
+                        <li><a href="towary.html">Towary</a></li>
+                        <li><a href="magazyny.html">Magazyny</a></li>
+                        <li><a href="kurierzy.html">Kurierzy</a></li>
+                        <li><a href="raporty.html">Raporty</a></li>
+                    </ul>
+                    <p class="navbar-text pull-right">
+                        Zalogowany jako <a href="#">Frank Sinatra</a>
+                    </p>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
         </div>
-      </div>
     </div>
-
     <div class="container-fluid">
-      <div class="row-fluid">
-        <div class="span3">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header">Aktywne</li>
-              <li class="active"><a href="#">Nie podjęte</a></li>
-              <li><a href="#">W trakcie realizacji</a></li>
-              <li><a href="#">Oczekujące doręczenia</a></li>
-              <li><a href="#">Oczekujące zapłaty</a></li>
-              <li class="nav-header">Historyczne</li>
-              <li><a href="#">Ostatnio zrealizowane</a></li>
-              <li><a href="#">Archiwalne</a></li>
-            </ul>
-          </div><!--/.well -->
-        </div><!--/span-->
-        <div class="span9">
-          <div class="row-fluid">
-            <div class="span12">
-              <h2>Nie podjęte</h2>
-
-							<table class="table table-striped table-bordered table-condensed">
-								<thead>
-									<tr>
-										<th>Numer zlecenia</th>
-										<th>Zleceniodawca</th>
-										<th>Stan</th>
-										<th>Adres źródłowy</th>
-										<th>Adres docelowy</th>
-										<th>Ostatni adres</th>
-										<th>W drodze do</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>
-											<ul class="nav nav-pills">
-												<li class="dropdown">
-													<a class="dropdown-toggle" data-toggle="dropdown" href="#">123 <b class="caret"></b></a>
-													<ul id="menu1" class="dropdown-menu">
-														<li><a href="#"><i class="icon-pencil"></i> Edycja</a></li>
-														<li><a href="#"><i class="icon-trash"></i> Usuń</a></li>
-														<li><a href="#"><i class="icon-ban-circle"></i> Zgłoś problem</a></li>
-													</ul>
-												</li>
-											</ul>
-										</td>
-										<td>
-											<ul class="nav nav-pills">
-												<li class="dropdown">
-													<a class="dropdown-toggle" data-toggle="dropdown" href="#">Stefan Kaliber <b class="caret"></b></a>
-													<ul id="menu1" class="dropdown-menu">
-														<li><a href="#"><i class="icon-pencil"></i> Edycja</a></li>
-														<li><a href="#"><i class="icon-trash"></i> Usuń</a></li>
-														<li class="divider"></li>
-														<li><a href="#"><i class="icon-envelope"></i> Wyślij e-mail</a></li>
-														<li><a href="#"><i class="icon-headphones"></i> Zadzwoń</a></li>
-													</ul>
-												</li>
-											</ul>
-										</td>
-										<td>
-											<ul class="nav nav-pills">
-												<li class="dropdown">
-													<a class="dropdown-toggle" data-toggle="dropdown" href="#">Nie podjęte<b class="caret"></b></a>
-													<ul id="menu1" class="dropdown-menu">
-														<li><a href="#"><i class="icon-home"></i> Odebrano</a></li>
-														<li><a href="#"><i class="icon-home"></i> W drodze</a></li>
-														<li><a href="#"><i class="icon-home"></i> W magazynie</a></li>
-														<li><a href="#"><i class="icon-ok-circle"></i> Dostarczono</a></li>
-														<li><a href="#"><i class="icon-check"></i> Zamknięte</a></li>
-														<li class="divider"></li>
-														<li><a href="#"><i class="icon-question-sign"></i> Problem z adresem</a></li>
-														<li><a href="#"><i class="icon-fire"></i> Inny problem</a></li>
-													</ul>
-												</li>
-											</ul>
-										</td>
-										<td>
-											<address>
-												<strong>Stafan Kaliber</strong><br/>
-												Żelazowa Wola<br/>
-												12-213<br/>
-												Altyrelyjska 123/12<br/>
-												Polska
-											</address>
-										</td>
-										<td>
-											<address>
-												<strong>Juzef Roztocz</strong><br/>
-												Dalejlama<br/>
-												12<br/>
-												Xbrna 123/12<br/>
-												Zimbabwe
-											</address>
-										</td>
-										<td>
-										</td>
-										<td>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-            </div><!--/span-->
-          </div><!--/row-->
-          <div class="row-fluid">
-            <div class="span4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-          </div><!--/row-->
-        </div><!--/span-->
-      </div><!--/row-->
-
-      <hr>
-
-      <footer>
-        <p>&copy; Jakub Pastuszek, Adrian Piotrowicz 2012</p>
-      </footer>
-
-    </div><!--/.fluid-container-->
-
+        <div class="row-fluid">
+            <div class="span3">
+                <div class="well sidebar-nav">
+                    <ul class="nav nav-list">
+                        <li class="nav-header">Aktywne</li>
+                        <li class="active"><a href="#">Nie podjęte</a></li>
+                        <li><a href="#">W trakcie realizacji</a></li>
+                        <li><a href="#">Oczekujące doręczenia</a></li>
+                        <li><a href="#">Oczekujące zapłaty</a></li>
+                        <li class="nav-header">Historyczne</li>
+                        <li><a href="#">Ostatnio zrealizowane</a></li>
+                        <li><a href="#">Archiwalne</a></li>
+                    </ul>
+                </div>
+                <!--/.well -->
+            </div>
+            <!--/span-->
+            <div class="span9">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <h2>Nie podjęte</h2>
+                        <table class="table table-striped table-bordered table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Numer zlecenia</th>
+                                    <th>Zleceniodawca</th>
+                                    <th>Stan</th>
+                                    <th>Adres źródłowy</th>
+                                    <th>Adres docelowy</th>
+                                    <th>Ostatni adres</th>
+                                    <th>W drodze do</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <ul class="nav nav-pills">
+                                            <li class="dropdown"><a
+                                                class="dropdown-toggle"
+                                                data-toggle="dropdown"
+                                                href="#"
+                                            >123 <b class="caret"></b></a>
+                                                <ul
+                                                    id="menu1"
+                                                    class="dropdown-menu"
+                                                >
+                                                    <li><a href="#"><i class="icon-pencil"></i>
+                                                            Edycja</a></li>
+                                                    <li><a href="#"><i class="icon-trash"></i>
+                                                            Usuń</a></li>
+                                                    <li><a href="#"><i
+                                                            class="icon-ban-circle"
+                                                        ></i> Zgłoś problem</a></li>
+                                                </ul></li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul class="nav nav-pills">
+                                            <li class="dropdown"><a
+                                                class="dropdown-toggle"
+                                                data-toggle="dropdown"
+                                                href="#"
+                                            >Stefan Kaliber <b class="caret"></b></a>
+                                                <ul
+                                                    id="menu1"
+                                                    class="dropdown-menu"
+                                                >
+                                                    <li><a href="#"><i class="icon-pencil"></i>
+                                                            Edycja</a></li>
+                                                    <li><a href="#"><i class="icon-trash"></i>
+                                                            Usuń</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#"><i
+                                                            class="icon-envelope"
+                                                        ></i> Wyślij e-mail</a></li>
+                                                    <li><a href="#"><i
+                                                            class="icon-headphones"
+                                                        ></i> Zadzwoń</a></li>
+                                                </ul></li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul class="nav nav-pills">
+                                            <li class="dropdown"><a
+                                                class="dropdown-toggle"
+                                                data-toggle="dropdown"
+                                                href="#"
+                                            >Nie podjęte<b class="caret"></b></a>
+                                                <ul
+                                                    id="menu1"
+                                                    class="dropdown-menu"
+                                                >
+                                                    <li><a href="#"><i class="icon-home"></i>
+                                                            Odebrano</a></li>
+                                                    <li><a href="#"><i class="icon-home"></i>
+                                                            W drodze</a></li>
+                                                    <li><a href="#"><i class="icon-home"></i>
+                                                            W magazynie</a></li>
+                                                    <li><a href="#"><i
+                                                            class="icon-ok-circle"
+                                                        ></i> Dostarczono</a></li>
+                                                    <li><a href="#"><i class="icon-check"></i>
+                                                            Zamknięte</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#"><i
+                                                            class="icon-question-sign"
+                                                        ></i> Problem z adresem</a></li>
+                                                    <li><a href="#"><i class="icon-fire"></i>
+                                                            Inny problem</a></li>
+                                                </ul></li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <address>
+                                            <strong>Stafan Kaliber</strong><br /> Żelazowa Wola<br />
+                                            12-213<br /> Altyrelyjska 123/12<br /> Polska
+                                        </address>
+                                    </td>
+                                    <td>
+                                        <address>
+                                            <strong>Juzef Roztocz</strong><br /> Dalejlama<br /> 12<br />
+                                            Xbrna 123/12<br /> Zimbabwe
+                                        </address>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--/span-->
+                </div>
+                <!--/row-->
+                <div class="row-fluid">
+                    <div class="span4">
+                        <h2>Heading</h2>
+                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus,
+                            tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum
+                            massa justo sit amet risus. Etiam porta sem malesuada magna mollis
+                            euismod. Donec sed odio dui.</p>
+                        <p>
+                            <a
+                                class="btn"
+                                href="#"
+                            >View details &raquo;</a>
+                        </p>
+                    </div>
+                    <!--/span-->
+                    <div class="span4">
+                        <h2>Heading</h2>
+                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus,
+                            tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum
+                            massa justo sit amet risus. Etiam porta sem malesuada magna mollis
+                            euismod. Donec sed odio dui.</p>
+                        <p>
+                            <a
+                                class="btn"
+                                href="#"
+                            >View details &raquo;</a>
+                        </p>
+                    </div>
+                    <!--/span-->
+                    <div class="span4">
+                        <h2>Heading</h2>
+                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus,
+                            tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum
+                            massa justo sit amet risus. Etiam porta sem malesuada magna mollis
+                            euismod. Donec sed odio dui.</p>
+                        <p>
+                            <a
+                                class="btn"
+                                href="#"
+                            >View details &raquo;</a>
+                        </p>
+                    </div>
+                    <!--/span-->
+                </div>
+                <!--/row-->
+            </div>
+            <!--/span-->
+        </div>
+        <!--/row-->
+        <hr>
+        <footer>
+            <p>&copy; Jakub Pastuszek, Adrian Piotrowicz 2012</p>
+        </footer>
+    </div>
+    <!--/.fluid-container-->
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -207,6 +295,5 @@
     <script src="../bootstrap/js/bootstrap-collapse.js"></script>
     <script src="../bootstrap/js/bootstrap-carousel.js"></script>
     <script src="../bootstrap/js/bootstrap-typeahead.js"></script>
-
-  </body>
+</body>
 </html>
