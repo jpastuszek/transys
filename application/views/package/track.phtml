@@ -1,0 +1,99 @@
+<h2>Śledzenie przesyłki</h2>
+
+<form action="/package/track" class="form-inline" method="get">
+	<div class="control-group">
+		<div class="controls">
+			<div class="input-append">
+				<input type="text" name="tracking_code" placeholder="Numer przesyłki" value="<?php echo App_Request::getInstance()->getParam('tracking_code', ''); ?>"><button class="btn btn-inverse" type="submit"><i class="icon-search icon-white"></i></button>
+			</div>
+		</div>
+	</div>
+</form>
+
+<?php if (isset($this->package)): ?>
+
+<div class="row">
+	<h3 class="span12">
+		<span style="font-weight: normal;">Stan przesyłki:</span>
+		<?php if ('created' == $this->package->package_state): ?>
+		Zlecenie utworzone w systemie TranSys
+		<?php endif; ?>
+		<?php if ('pick_error' == $this->package->package_state): ?>
+		Problem odbioru od zleceniodawcy
+		<?php endif; ?>
+		
+	</h3>
+</div>
+<p>&nbsp;</p>
+<div class="row">
+	<div class="span4">
+		<h4>Dane nadawcy</h4>
+		<address>
+			<?php echo $this->package->sender_name; ?><br>
+			<?php echo $this->package->sender_street; ?><br>
+			<?php echo $this->package->sender_postal; ?> <?php echo $this->package->sender_city; ?><br>
+			<?php if ($this->package->sender_email): ?>
+			<?php echo $this->package->sender_email; ?><br>
+			<?php endif; ?>
+			<?php if ($this->package->sender_phone): ?>
+			<?php echo $this->package->sender_phone; ?><br>
+			<?php endif; ?>
+		</address>
+	</div>
+	<div class="span4">
+		<h4>Informacje o przesyłce</h4>
+		<p>
+			Wymiary: <?php echo $this->package->package_width; ?> X <?php echo $this->package->package_height; ?> X <?php echo $this->package->package_depth; ?><br />
+			Waga: <?php echo $this->package->package_weight; ?> kg
+		</p>
+	</div>
+	<div class="span4">
+		<h4>Dane odbiorcy</h4>
+		<address>
+			<?php echo $this->package->receiver_name; ?><br>
+			<?php echo $this->package->receiver_street; ?><br>
+			<?php echo $this->package->receiver_postal; ?> <?php echo $this->package->receiver_city; ?><br>
+			<?php if ($this->package->receiver_email): ?>
+			<?php echo $this->package->receiver_email; ?><br>
+			<?php endif; ?>
+			<?php if ($this->package->receiver_phone): ?>
+			<?php echo $this->package->receiver_phone; ?><br>
+			<?php endif; ?>
+		</address>
+	</div>
+</div>
+<div class="row">
+	<div class="span12">
+		<h3>Historia przesyłki</h3>
+		<?php foreach ($this->package_log as $oPackageLog): ?>
+			<div class="well">
+				<h4><?php echo constant('Model_Package::STATE_' . $oPackageLog->package_log_type); ?></h4>
+				<!-- 
+				<?php if ('created' == $oPackageLog->package_log_type): ?>
+					<h4>Zlecenie utworzone w systemie TranSys</h4>
+				<?php endif; ?>
+				
+				<?php if ('pick_error' == $oPackageLog->package_log_type): ?>
+					<h4>Problem odbioru przesyłki od zleceniodawcy</h4>
+				<?php endif; ?>
+				 -->
+				 
+				<?php if ($oPackageLog->user_name): ?>
+				<p>Zaktualizowane przez: <strong><?php echo $oPackageLog->user_name; ?></strong></p>
+				<?php endif; ?>
+				
+				<p>Data aktualizacji: <strong><?php echo date('Y/m/d H:i:s', $oPackageLog->package_log_time); ?></strong></p>
+				<?php if ($oPackageLog->package_log_info): ?>
+				<p>Dodatkowe uwagi:</p>
+				<div class="well" style="margin-bottom: 0;">
+					<?php echo $oPackageLog->package_log_info; ?>
+				</div>
+				<?php endif; ?>
+			</div>
+		<?php endforeach; ?>
+	</div>
+</div>
+<?php endif; ?>
+<?php if (0 != App_Request::getInstance()->getParam('tracking_code', 0) && !$this->package): ?>
+<h2 class="alert alert-error" style="text-align: center;">Przepraszamy, ale nie posiadamy informacji o danej paczce</h2>
+<?php endif; ?>

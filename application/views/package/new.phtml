@@ -1,0 +1,145 @@
+<h2>Nowe zlecenie</h2>
+
+
+<div class="progress progress-striped active">
+	<div class="bar" style="width: <?php echo round((100*$this->step)/5); ?>%"></div>
+</div>
+
+<?php if (1 == $this->step || 2 == $this->step || 3 == $this->step): ?>
+	<p class="help-block"><strong>Uwaga:</strong> Pola oznaczone <i class="icon-asterisk"></i> są wymagane</p>
+<?php endif; ?>
+
+<?php if (1 == $this->step): ?>
+	<?php echo $this->partial('package/new/step1.phtml'); ?>
+<?php endif; ?>
+
+<?php if (2 == $this->step): ?>
+	<?php echo $this->partial('package/new/step2.phtml'); ?>
+<?php endif; ?>
+
+<?php if (3 == $this->step): ?>
+	<?php echo $this->partial('package/new/step3.phtml'); ?>
+<?php endif; ?>
+
+
+<?php if (4 == $this->step || 5 == $this->step): ?>
+<h3>Podsumowanie</h3>
+<p>&nbsp;</p>
+<div class="row">
+	<div class="span4">
+		<h4>Dane nadawcy</h4>
+		<address>
+			<?php echo $this->sender_name; ?><br>
+			<?php echo $this->sender_street; ?><br>
+			<?php echo $this->sender_postal; ?> <?php echo $this->sender_city; ?><br>
+			<?php if ($this->sender_email): ?>
+			<?php echo $this->sender_email; ?><br>
+			<?php endif; ?>
+			<?php if ($this->sender_phone): ?>
+			<?php echo $this->sender_phone; ?><br>
+			<?php endif; ?>
+		</address>
+	</div>
+	<div class="span4">
+		<h4>Informacje o przesyłce</h4>
+		<p>
+			Wymiary: <?php echo $this->package_width; ?> X <?php echo $this->package_height; ?> X <?php echo $this->package_depth; ?><br />
+			Waga: <?php echo $this->package_weight; ?> kg
+		</p>
+	</div>
+	<div class="span4">
+		<h4>Dane odbiorcy</h4>
+		<address>
+			<?php echo $this->receiver_name; ?><br>
+			<?php echo $this->receiver_street; ?><br>
+			<?php echo $this->receiver_postal; ?> <?php echo $this->receiver_city; ?><br>
+			<?php if ($this->receiver_email): ?>
+			<?php echo $this->receiver_email; ?><br>
+			<?php endif; ?>
+			<?php if ($this->receiver_phone): ?>
+			<?php echo $this->receiver_phone; ?><br>
+			<?php endif; ?>
+		</address>
+	</div>
+</div>
+<div class="row">
+	<div class="span12">
+		<h3>Cena paczki: <span style="font-size: 1.5em;"><?php echo number_format($this->package_price, 2, ',', ''); ?></span> PLN</h3>
+	</div>
+</div>
+
+<p>&nbsp;</p>
+<?php if (4 == $this->step): ?>
+<form action="/package/new" method="post" class="form-horizontal">
+	<input type="hidden" name="current_step" value="4">
+	<div class="control-group">
+		<label class="control-label" for="package_payment_method">Płatność:</label>
+		<div class="controls">
+			<select class="span5" tabindex="1" name="package_payment_method" id="package_payment_method">
+				<option value="instant">teraz poprzez PayPal</option>
+				<option value="pick">gotówką przy odbiorze od zleceniodawcy</option>
+				<option value="deliver">gotówką przy dostarczeniu do odbiorcy</option>
+			</select>
+		</div>
+	</div>
+	
+	<div class="form-actions">
+		<a href="/package/new?step=3"><button class="btn btn-large btn-inverse" type="button">Wstecz</button></a>
+		<button class="btn btn-large btn-primary" tabindex="2" type="submit" name="step" value="5">Złóż zamówienie</button>
+	</div>
+</form>
+<?php endif; ?>
+
+<?php if (5 == $this->step): ?>
+<div class="row">
+	<div class="span12" style="text-align: center;">
+		<?php if ($this->success): ?>
+			<h3 class="alert alert-success" style="color: inherit; padding: 10px 0">
+				&#10004; Zlecenie zostało przyjęte.<br />
+				<br />
+				Numer przesyłki:<br />
+				<span style="font-size: 2em;">
+					<?php echo $this->package_tracking_code; ?>
+				</span><br />
+				<em style="font-size: 0.7em; font-weight: normal;">
+					numeru tego można używać do śledzenia przesyłki
+				</em>
+			</h3>
+			<p>&nbsp;</p>
+			<p>Wybrana forma płatności: 
+				
+				<?php if ('pick' == $this->package_payment_method): ?>
+				<strong>Płatność gotówką przy odbiorze od zleceniodawcy</strong>
+				<?php endif; ?>
+				
+				<?php if ('deliver' == $this->package_payment_method): ?>
+				<strong>Płatność gotówką przy dostarczeniu do odbiorcy</strong>
+				<?php endif; ?>
+				
+				<?php if ('instant' == $this->package_payment_method): ?>
+				<strong>Płatność natychmiastowa poprzez PayPal</strong>
+				<br />
+				<a class="btn btn-primary btn-large" href="/package/pay/tracking_code/<?php echo $this->package_tracking_code; ?>">Zapłać</a>
+				<?php endif; ?>
+			</p>
+		<?php else: ?>
+			<form method="post">
+			<h3 class="alert alert-error" style="color: inherit; padding: 10px 0;">
+				&#10005; Zlecenie NIE zostało przyjęte<br />
+				Wystąpił błąd wewnętrzny.<br />
+				<br />
+				<input type="hidden" name="package_payment_method" value="<?php echo $this->package_payment_method; ?>">
+				<button class="btn btn-large btn-danger" tabindex="2" type="submit" name="step" value="5">Ponów próbę</button>
+				<br />
+			</h3>
+			</form>
+			
+		<?php endif; ?>
+	</div>
+</div>
+
+
+<?php endif; ?>
+
+<?php endif; ?>
+
