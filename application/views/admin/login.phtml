@@ -1,0 +1,30 @@
+<div class="span8 offset2">
+	<form action="/admin" method="post" class="form-horizontal">
+		<h1>Logowanie do systemu</h1>
+		<p>&nbsp;</p>
+		<?php if ($this->authError): ?>
+		<div class="alert alert-error">
+			Podany login lub hasło są nieprawidłowe.
+		</div>
+		<?php endif; ?>
+		<div class="row">
+			<div class="control-group span6 offset1">
+				<label class="control-label" for="user_login">Nazwa użytkownika</label>
+				<div class="controls">
+					<input type="text" name="user_login" id="user_login" />
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="control-group span6 offset1">
+				<label class="control-label" for="user_password">Hasło użytkownika</label>
+				<div class="controls">
+					<input type="password" name="user_password" id="user_password" />
+				</div>
+			</div>
+		</div>
+		<div class="form-actions">
+			<button class="btn btn-primary" type="submit">Zaloguj</button>
+		</div>
+	</form>
+</div>

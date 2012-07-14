@@ -1,0 +1,49 @@
+<form action="/package/new" method="post" class="form-horizontal">
+	<input type="hidden" name="current_step" value="2">
+	<fieldset>
+		<legend>Informacje o przesyłce</legend>
+	
+		<div class="control-group">
+			<label class="control-label" for="package_weight">Waga</label>
+			<div class="controls">
+				<div class="input-append">
+					<input tabindex="1" type="number" name="package_weight" id="package_weight" value="<?php echo $this->package_weight; ?>" required="required"><span class="add-on"><i class="icon-asterisk"></i></span><span class="add-on">kg</span>
+				</div>
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="package_width">Szerokość</label>
+			<div class="controls">
+				<div class="input-append">
+					<input tabindex="2" type="number" name="package_width" id="package_width" value="<?php echo $this->package_width; ?>" required="required"><span class="add-on"><i class="icon-asterisk"></i></span><span class="add-on">cm</span>
+				</div>
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="package_height">Wysokość</label>
+			<div class="controls">
+				<div class="input-append">
+					<input tabindex="3" type="number" name="package_height" id="package_height" value="<?php echo $this->package_height; ?>" required="required"><span class="add-on"><i class="icon-asterisk"></i></span><span class="add-on">cm</span>
+				</div>
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="package_depth">Głębokość</label>
+			<div class="controls">
+				<div class="input-append">
+					<input tabindex="4" type="number" name="package_depth" id="package_depth" value="<?php echo $this->package_depth; ?>" required="required"><span class="add-on"><i class="icon-asterisk"></i></span><span class="add-on">cm</span>
+				</div>
+			</div>
+		</div>
+	
+	</fieldset>
+	
+	<div class="form-actions">
+		<a href="/package/new?step=1"><button class="btn btn-large btn-inverse" type="button">Wstecz</button></a>
+		<button tabindex="5" class="btn btn-large btn-primary" type="submit" name="step" value="3">Dalej</button>
+	</div>
+
+</form>

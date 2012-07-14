@@ -1,0 +1,35 @@
+<div class="span8 offset2">
+	<h2>Lista klientów</h2>
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>Nazwa</th>
+				<th>Ulica</th>
+				<th>Kod, Miasto</th>
+				<th>E-mail</th>
+				<th>Telefon</th>
+				<th>Wystąpień</th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php if(count($this->clients) > 0):?>
+			<?php foreach ($this->clients as $oClient): ?>
+			<tr>
+				<td><?php echo $oClient->client_name; ?></td>
+				<td><?php echo $oClient->client_street; ?></td>
+				<td><?php echo $oClient->client_postal; ?> <?php echo $oClient->client_city; ?></td>
+				<td><a href="mailto:<?php echo $oClient->client_email; ?>"><?php echo $oClient->client_email; ?></a></td>
+				<td><a href="tel:<?php echo $oClient->client_phone; ?>"><?php echo $oClient->client_phone; ?></a></td>
+				<td><?php echo $oClient->client_use_count; ?></td>
+			</tr>
+			<?php endforeach; ?>
+		<?php else: ?>
+			<tr>
+				<td colspan="6" style="text-align: center;">
+					Brak danych spełniających zadane kryteria
+				</td>
+			</tr>
+		<?php endif; ?>
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,70 @@
+<form action="/package/new" method="post" class="form-horizontal">
+	<input type="hidden" name="current_step" value="3">
+	<fieldset>
+		<legend>Dane nadawcy</legend>
+		
+		<div class="control-group<?php if ($this->sender_name_error) {echo ' error';} ?>">
+			<label class="control-label" for="sender_name">Nazwa</label>
+			<div class="controls">
+				<div class="input-append">
+					<input class="span5" tabindex="1" type="text" name="sender_name" id="sender_name" value="<?php echo $this->sender_name; ?>" required="required" placeholder="Imię Nazwisko"><span class="add-on"><i class="icon-asterisk"></i></span>
+				</div>
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="sender_email">Email</label>
+			<div class="controls">
+				<input class="span5" tabindex="2" type="email" name="sender_email" id="sender_email" value="<?php echo $this->sender_email; ?>" placeholder="someone@example.com">
+				<span class="help-inline">Na ten adres zostanie wysłana wiadomość z numerem trackingowym przesyłki</span>
+			</div>
+		</div>
+	
+		<div class="control-group">
+			<label class="control-label" for="sender_phone">Telefon kontaktowy</label>
+			<div class="controls">
+				<input class="span2" tabindex="3" type="tel" name="sender_phone" id="sender_phone" value="<?php echo $this->sender_phone; ?>"  placeholder="+48 123 456 789">
+				<span class="help-inline"></span>
+			</div>
+		</div>
+	
+	</fieldset>
+	
+	<fieldset>
+		<legend>Adres nadawcy</legend>
+		
+		<div class="control-group<?php if ($this->sender_street_error) {echo ' error';} ?>">
+			<label class="control-label" for="sender_street">Ulica i numer domu</label>
+			<div class="controls">
+				<div class="input-append">
+					<input class="span5" tabindex="4" type="text" name="sender_street" id="sender_street" value="<?php echo $this->sender_street; ?>" required="required"><span class="add-on"><i class="icon-asterisk"></i></span>
+				</div>
+			</div>
+		</div>
+		
+		<div class="control-group<?php if ($this->sender_city_error) {echo ' error';} ?>">
+			<label class="control-label" for="sender_city">Miasto</label>
+			<div class="controls">
+				<div class="input-append">
+					<input class="span5" tabindex="5" type="text" name="sender_city" id="sender_city" value="<?php echo $this->sender_city; ?>" required="required"><span class="add-on"><i class="icon-asterisk"></i></span>
+				</div>
+			</div>
+		</div>
+		
+		<div class="control-group<?php if ($this->sender_postal_error) {echo ' error';} ?>">
+			<label class="control-label" for="sender_postal">Kod pocztowy</label>
+			<div class="controls">
+				<div class="input-append">
+					<input class="span1" tabindex="6" type="text" name="sender_postal" id="sender_postal" value="<?php echo $this->sender_postal; ?>" required="required" placeholder="00-000" maxlength="6"><span class="add-on"><i class="icon-asterisk"></i></span>
+				</div>
+			</div>
+		</div>
+	
+	</fieldset>
+	
+	<div class="form-actions">
+		<a href="/package/new?step=2"><button class="btn btn-large btn-inverse" type="button">Wstecz</button></a>
+		<button tabindex="7" class="btn btn-large btn-primary" type="submit" name="step" value="4">Dalej</button>
+	</div>
+	
+</form>

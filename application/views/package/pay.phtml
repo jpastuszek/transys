@@ -1,0 +1,12 @@
+<?php if ($this->success): ?>
+<div class="span6 offset3 alert alert-success" style="text-align: center">
+	<h1>Gratulacje!</h1>
+	<h3>Nasza firma doręczy twoją paczkę na własny koszt!</h3>
+</div>
+<?php endif; ?>
+
+<?php if ($this->payment_type_mismatch): ?>
+<div class="span6 offset3 alert alert-error">
+	Ta funkcja nie jest wspierana!
+</div>
+<?php endif; ?>
