@@ -1,0 +1,74 @@
+<?php if (isset($this->status_form) && $this->status_form): ?>
+
+<?php if (isset($this->update_error) && $this->update_error): ?>
+<div class="row">
+	<div class="span6 offset3 alert alert-error" style="text-align: center;">
+		<h1>Błąd aktualizacji logu paczki.</h1>
+	</div>
+</div>
+<?php endif; ?>
+<form 
+	action="/admin/package/set_status/<?php echo $this->package_log_type; ?>/package_id/<?php echo $this->package_id; ?>"
+	method="post"
+	class=""
+	>
+	<h2>Ustawienie statusu: <?php echo constant('Model_Package::STATE_' . $this->package_log_type); ?></h2>
+	
+	<input type="hidden" name="package_id" value="<?php echo $this->package_id; ?>">
+	<input type="hidden" name="package_log_type" value="<?php echo $this->package_log_type; ?>">
+	<input type="hidden" name="referer" value="<?php echo $this->referer; ?>">
+
+	<?php if ('pick_error' == $this->package_log_type 
+			|| 'deliver_error' == $this->package_log_type 
+			|| 'other_error' == $this->package_log_type): ?>
+	<div class="row">
+		<div class="span6 offset3 alert alert-warning" style="text-align: center;">
+			<h3>Wymagane jest podanie opisu problemu</h3>
+		</div>
+	</div>			
+	<?php endif; ?>
+	<?php if (isset($this->show_payment) && $this->show_payment): ?>
+	<div class="row">
+		<div class="span6 offset3 alert alert-warning" style="text-align: center;">
+			<h3>Wymagane jest pobranie opłaty za przesyłkę</h3>
+		</div>
+	</div>			
+	<div class="control-group">
+		<label for="package_payment" class="control-label checbox">
+			<input type="checkbox" name="package_payment" id="package_payment" value="1" style="vertical-align: top">
+			<span style="font-size: 1.3em; font-weight: bold;">Pobrano opłatę za przesyłkę</span>
+		</label>
+	</div>
+	<?php endif; ?>
+	<div class="control-group">
+		<label for="package_log_info" class="control-label">
+			Dodatkowe uwagi
+		</label>
+		<div class="controls">
+			<textarea 
+				tabindex="1" 
+				rows="5" 
+				class="span12"
+				name="package_log_info" 
+				placeholder="<?php 
+					echo ('pick_error' == $this->package_log_type 
+							|| 'deliver_error' == $this->package_log_type 
+							|| 'other_error' == $this->package_log_type
+							) 
+							? 'Wymagane'
+							: 'Opcjonalnie'
+							; ?>"><?php App_Request::getInstance()->getPost('package_log_info', '')?></textarea>
+		</div>
+	</div>
+	<div class="form-actions">
+		<button 
+			tabindex="2"
+			type="submit"
+			class="btn btn-inverse btn-large pull-right"
+			>
+			<i class="icon-ok icon-white"></i>
+			Zapisz
+		</button>
+	</div>
+</form>
+<?php endif; ?>

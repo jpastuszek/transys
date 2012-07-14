@@ -1,0 +1,284 @@
+<div class="row-fluid">
+	<div class="span3">
+		<div class="well sidebar-nav">
+			<ul class="nav nav-list">
+				<li class="nav-header">Aktywne</li>
+				<?php if ('admin' == App_Auth::getInstance()->getIdentity()->user_type): ?>
+				<li class="<?php if ('new' == App_Request::getInstance()->getParam('type', '')) echo 'active'; ?>"><a href="/admin/packages/type/new">Nie przypisane</a></li>
+				<?php endif; ?>
+				<li class="<?php if ('pick' == App_Request::getInstance()->getParam('type', '')) echo 'active'; ?>"><a href="/admin/packages/type/pick">Oczekujące na odbiór</a></li>
+				<li class="<?php if ('picked' == App_Request::getInstance()->getParam('type', '')) echo 'active'; ?>"><a href="/admin/packages/type/picked">Odebrane</a></li>
+				<li class="<?php if ('warehouse' == App_Request::getInstance()->getParam('type', '')) echo 'active'; ?>"><a href="/admin/packages/type/warehouse">Na magazynie</a></li>
+				<li class="<?php if ('deliver' == App_Request::getInstance()->getParam('type', '')) echo 'active'; ?>"><a href="/admin/packages/type/deliver">W doręczeniu</a></li>
+				<li class="<?php if ('payment' == App_Request::getInstance()->getParam('type', '')) echo 'active'; ?>"><a href="/admin/packages/type/payment">Oczekujące zapłaty</a></li>
+				<li class="nav-header">Historyczne</li>
+				<li class="<?php if ('complete' == App_Request::getInstance()->getParam('type', '')) echo 'active'; ?>"><a href="/admin/packages/type/complete">Ostatnio zrealizowane</a></li>
+				<li class="<?php if ('archive' == App_Request::getInstance()->getParam('type', '')) echo 'active'; ?>"><a href="/admin/packages/type/archive">Archiwalne</a></li>
+			</ul>
+		</div><!--/.well -->
+	</div><!--/span-->
+	<div class="span9">
+		<div class="row-fluid">
+			<div class="span12">
+				<?php if ('new' == App_Request::getInstance()->getParam('type', '')): ?>
+				<h2>Nie podjęte</h2>
+				<?php endif; ?>
+				<?php if ('pick' == App_Request::getInstance()->getParam('type', '')): ?>
+				<h2>Oczekujące na odbiór</h2>
+				<?php endif; ?>
+				<?php if ('picked' == App_Request::getInstance()->getParam('type', '')): ?>
+				<h2>Odebrane</h2>
+				<?php endif; ?>
+				<?php if ('warehouse' == App_Request::getInstance()->getParam('type', '')): ?>
+				<h2>Na magazynie</h2>
+				<?php endif; ?>
+				<?php if ('deliver' == App_Request::getInstance()->getParam('type', '')): ?>
+				<h2>W doręczeniu</h2>
+				<?php endif; ?>
+				<?php if ('payment' == App_Request::getInstance()->getParam('type', '')): ?>
+				<h2>Oczekujące zapłaty</h2>
+				<?php endif; ?>
+				<?php if ('complete' == App_Request::getInstance()->getParam('type', '')): ?>
+				<h2>Ostatnio zrealizowane</h2>
+				<?php endif; ?>
+				<?php if ('archive' == App_Request::getInstance()->getParam('type', '')): ?>
+				<h2>Archiwalne</h2>
+				<?php endif; ?>
+				<table class="table table-striped table-bordered table-condensed">
+					<thead>
+						<tr>
+							<th>Numer zlecenia</th>
+							<th>
+								<i class="icon-upload"></i> Zleceniodawca<br>
+								<i class="icon-download"></i> Odbiorca
+							</th>
+							<th>
+								<i class="icon-upload"></i> Kurier odbierający<br>
+								<i class="icon-download"></i> Kurier doręczający
+							</th>
+							<th>Stan</th>
+							<th>Adres źródłowy</th>
+							<th>Adres docelowy</th>
+						</tr>
+					</thead>
+					<tbody>
+					<?php if (count($this->packages) > 0): ?>
+						<?php foreach ($this->packages as $oPackage): ?>
+						<tr>
+							<td>
+								<ul class="nav nav-pills">
+									<li>
+										<a href="/package/track?tracking_code=<?php echo $oPackage->package_tracking_code; ?>"><?php echo $oPackage->package_tracking_code; ?></a>
+									</li>
+								</ul>
+							</td>
+							<td>
+								<ul class="nav nav-pills"> <!-- Nadawca -->
+									<li class="dropdown">
+										<a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-upload"></i> <?php echo $oPackage->sender_name; ?> <b class="caret"></b></a>
+										<ul id="menu1" class="dropdown-menu">
+											<li><a href="mailto:<?php echo $oPackage->sender_email; ?>"><i class="icon-envelope"></i> Wyślij e-mail</a></li>
+											<li><a href="tel:<?php echo $oPackage->sender_phone; ?>"><i class="icon-headphones"></i> Zadzwoń</a></li>
+										</ul>
+									</li>
+								</ul>
+								<ul class="nav nav-pills"> <!-- Odbiorca -->
+									<li class="dropdown">
+										<a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-download"></i> <?php echo $oPackage->receiver_name; ?> <b class="caret"></b></a>
+										<ul id="menu1" class="dropdown-menu">
+											<li><a href="mailto:<?php echo $oPackage->receiver_email; ?>"><i class="icon-envelope"></i> Wyślij e-mail</a></li>
+											<li><a href="tel:<?php echo $oPackage->receiver_phone; ?>"><i class="icon-headphones"></i> Zadzwoń</a></li>
+										</ul>
+									</li>
+								</ul>
+							</td>
+							<td>
+								<ul class="nav nav-pills"> <!-- kurier odbierający -->
+									<li class="dropdown">
+										<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+											<i class="icon-upload"></i>
+											<?php if ($oPackage->courier_pick_name): ?>
+												<?php echo $oPackage->courier_pick_name; ?>
+											<?php else: ?>
+												Nie przypisany
+											<?php endif; ?>
+											<b class="caret"></b>
+										</a>
+										<ul id="menu1" class="dropdown-menu">
+										<?php if ('admin' == App_Auth::getInstance()->getIdentity()->user_type): ?>
+											<?php foreach ($this->couriers as $oCourier): ?>
+											<li><a href="/admin/package/package_id/<?php echo $oPackage->package_id; ?>/assign_pick/<?php echo $oCourier->user_id; ?>"><i class="icon-user"></i> <?php echo $oCourier->user_name; ?></a></li>
+											<?php endforeach; ?>
+										<?php else: ?>
+											<li><a>Brak uprawnień</a></li>
+										<?php endif; ?>
+										</ul>
+									</li>
+								</ul>
+								<ul class="nav nav-pills"> <!-- kurier doręczający -->
+									<li class="dropdown">
+										<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+											<i class="icon-download"></i>
+											<?php if ($oPackage->courier_deliver_name): ?>
+												<?php echo $oPackage->courier_deliver_name; ?>
+											<?php else: ?>
+												Nie przypisany
+											<?php endif; ?>
+											<b class="caret"></b>
+										</a>
+										<ul id="menu1" class="dropdown-menu">
+										<?php if ('admin' == App_Auth::getInstance()->getIdentity()->user_type): ?>
+											<?php foreach ($this->couriers as $oCourier): ?>
+											<li><a href="/admin/package/package_id/<?php echo $oPackage->package_id; ?>/assign_deliver/<?php echo $oCourier->user_id; ?>"><i class="icon-user"></i> <?php echo $oCourier->user_name; ?></a></li>
+											<?php endforeach; ?>
+										<?php else: ?>
+											<li><a>Brak uprawnień</a></li>
+										<?php endif; ?>
+										</ul>
+									</li>
+								</ul>
+							</td>
+							<td>
+								<ul class="nav nav-pills">
+									<li class="dropdown">
+										<a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo constant('Model_Package::STATE_SHORT_' . $oPackage->package_state); ?><b class="caret"></b></a>
+										<ul id="menu1" class="dropdown-menu">
+										<?php if (!$oPackage->package_picked): ?>
+											<li><a href="/admin/package/set_status/picked/package_id/<?php echo $oPackage->package_id; ?>">
+												<i class="icon-home"></i> <?php echo Model_Package::STATE_SHORT_picked; ?>
+											</a></li>
+										<?php else: ?>
+											<li><a>
+												<span class="muted">
+												<i class="icon-home"></i> <?php echo Model_Package::STATE_SHORT_picked; ?>
+												</span>
+											</a></li>
+										<?php endif; ?>
+										
+										<?php if ($oPackage->package_picked && !$oPackage->package_picked_transit && !$oPackage->package_warehouse): ?>
+											<li><a href="/admin/package/set_status/picked_transit/package_id/<?php echo $oPackage->package_id; ?>">
+												<i class="icon-road"></i> <?php echo Model_Package::STATE_SHORT_picked_transit; ?>
+											</a></li>
+										<?php else: ?>
+											<li><a>
+												<span class="muted">
+												<i class="icon-road"></i> <?php echo Model_Package::STATE_SHORT_picked_transit; ?>
+												</span>
+											</a></li>
+										<?php endif; ?>
+										
+										<?php if (!$oPackage->package_picked): ?>
+											<li><a href="/admin/package/set_status/pick_error/package_id/<?php echo $oPackage->package_id; ?>">
+												<i class="icon-fire"></i> <?php echo Model_Package::STATE_SHORT_pick_error; ?>
+											</a></li>
+										<?php else: ?>
+											<li><a>
+												<span class="muted">
+												<i class="icon-fire"></i> <?php echo Model_Package::STATE_SHORT_pick_error; ?>
+												</span>
+											</a></li>
+										<?php endif; ?>
+										
+											<li class="divider"></li>
+											
+										<?php if ($oPackage->package_picked_transit && !$oPackage->package_warehouse): ?>
+											<!-- Akcje dostepne jeżeli paczka nie była na magazynie -->
+											<li><a href="/admin/package/set_status/warehouse/package_id/<?php echo $oPackage->package_id; ?>">
+												<i class="icon-home"></i> <?php echo Model_Package::STATE_SHORT_warehouse; ?>
+											</a></li>
+										<?php else: ?>
+											<li><a>
+												<span class="muted">
+												<i class="icon-home"></i> <?php echo Model_Package::STATE_SHORT_warehouse; ?>
+												</span>
+											</a></li>
+										<?php endif; ?>
+										
+											<li class="divider"></li>
+											
+										<?php if ($oPackage->package_warehouse && !$oPackage->package_deliver_transit): ?>
+											<li><a href="/admin/package/set_status/deliver_transit/package_id/<?php echo $oPackage->package_id; ?>">
+												<i class="icon-road"></i> <?php echo Model_Package::STATE_SHORT_deliver_transit; ?>
+											</a></li>
+										<?php else: ?>
+											<li><a>
+												<span class="muted">
+												<i class="icon-road"></i> <?php echo Model_Package::STATE_SHORT_deliver_transit; ?>
+												</span>
+											</a></li>
+										<?php endif; ?>
+										
+										<?php if ($oPackage->package_deliver_transit && !$oPackage->package_delivered): ?>
+											<li><a href="/admin/package/set_status/deliver_error/package_id/<?php echo $oPackage->package_id; ?>">
+												<i class="icon-fire"></i> <?php echo Model_Package::STATE_SHORT_deliver_error; ?>
+											</a></li>
+										<?php else: ?>
+											<li><a>
+												<span class="muted">
+												<i class="icon-fire"></i> <?php echo Model_Package::STATE_SHORT_deliver_error; ?>
+												</span>
+											</a></li>
+										<?php endif; ?>
+										
+										<?php if ($oPackage->package_deliver_transit && !$oPackage->package_delivered): ?>
+											<li><a href="/admin/package/set_status/delivered/package_id/<?php echo $oPackage->package_id; ?>">
+												<i class="icon-ok-circle"></i> <?php echo Model_Package::STATE_SHORT_delivered; ?>
+											</a></li>
+										<?php else: ?>
+											<li><a>
+												<span class="muted">
+												<i class="icon-ok-circle"></i> <?php echo Model_Package::STATE_SHORT_delivered; ?>
+												</span>
+											</a></li>
+										<?php endif; ?>
+										<li class="divider"></li>
+										<?php if (!$oPackage->package_delivered): ?>
+											<!-- Akcje dostepne jeżeli paczka nie była doręczona -->
+											<li><a href="/admin/package/set_status/other_error/package_id/<?php echo $oPackage->package_id; ?>">
+												<i class="icon-fire"></i> <?php echo Model_Package::STATE_SHORT_other_error; ?>
+											</a></li>
+										<?php else: ?>
+											<li><a>
+												<span class="muted">
+												<i class="icon-fire"></i> <?php echo Model_Package::STATE_SHORT_other_error; ?>
+												</span>
+											</a></li>
+										<?php endif; ?>
+										</ul>
+									</li>
+								</ul>
+							</td>
+							<td>
+								<address>
+									<strong><?php echo $oPackage->sender_name; ?></strong><br>
+									<?php echo $oPackage->sender_postal; ?> <?php echo $oPackage->sender_city; ?><br>
+									<?php echo $oPackage->sender_street; ?><br>
+								</address>
+							</td>
+							<td>
+								<address>
+									<strong><?php echo $oPackage->receiver_name; ?></strong><br>
+									<?php echo $oPackage->receiver_postal; ?> <?php echo $oPackage->receiver_city; ?><br>
+									<?php echo $oPackage->receiver_street; ?><br>
+								</address>
+							</td>
+						</tr>
+						<?php endforeach; ?>
+					<?php else: ?>
+						<tr>
+							<td colspan="6">
+								<h3 style="text-align: center;">Brak paczek spełniających zadane kryteria</h3>
+							</td>
+						</tr>
+					<?php endif; ?>
+					</tbody>
+				</table>
+			</div><!--/span-->
+		</div><!--/row-->
+	</div><!--/span9-->
+</div><!--/row-fliud -->
+<div class="row-fluid">
+	<div class="span12">
+		<pre><?php //print_r($this->packages); ?></pre>
+	</div>
+</div>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>TranSys</title>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<link href="/css/bootstrap.css" rel="stylesheet">
+<link href="/css/bootstrap-responsive.css" rel="stylesheet">
+<style type="text/css">
+body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+    line-height: 1.7em;
+}
+
+ 
+.navbar-fixed-top .brand {
+	font-weight: bold;
+	color: white;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, .1), 0 0 30px rgba(255, 255, 255, .125);
+	-webkit-transition: all .2s linear;
+	-moz-transition: all .2s linear;
+	transition: all .2s linear;
+}
+
+.sidebar-nav {
+    padding: 9px 0;
+}
+
+article header {
+	font-size: 2em;
+	font-weight: bold;
+	margin: 10px 0;
+}
+.form-horizontal .form-actions {
+	text-align: center;
+	padding-left: 0;
+}
+</style>
+</head>
+
+<body>
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <a class="brand" href="/">TranSys</a>
+            	<div class="nav-collapse">
+            		<?php if (App_Auth::getInstance()->hasIdentity()): ?>
+                    <ul class="nav">
+                        <li><a href="/admin/packages">Zlecenia</a></li>
+                        <?php if ('admin' == App_Auth::getInstance()->getIdentity()->user_type): ?>
+                        <li><a href="/admin/senders">Zleceniodawcy</a></li>
+                        <li><a href="/admin/couriers">Kurierzy</a></li>
+                        <li><a href="/admin/reports">Raporty</a></li>
+                        <?php endif; ?>    
+                    </ul>
+                    <?php endif; ?>
+                    <p class="navbar-text pull-right">
+                    	<?php if (App_Auth::getInstance()->hasIdentity()): ?>
+                    		Jesteś zalogowany jako <a href="/admin"><?php echo App_Auth::getInstance()->getIdentity()->user_name; ?></a>
+                    		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    		<a href="/admin/logout">Wyloguj <i class="icon-off icon-white"></i></a>
+                    	<?php else: ?>
+                    		Nie jesteś zalogowany
+                    		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    		<a href="/admin/login">Zaloguj <i class="icon-user icon-white"></i></a>
+                    	<?php endif; ?>
+                    </p>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+		<?php echo $content; ?>
+	</div>
+	<div class="container-fluid">
+		<footer style="margin-top: 40px;" class="pull-right">
+			&copy; 2012 Jakub Pastuszek, Adrian Piotrowicz
+		</footer>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<div class="span8 offset2">
+	<h2>Lista kurierów</h2>
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Login</th>
+				<th>Nazwa</th>
+				<th>E-mail</th>
+				<th>Telefon</th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php if(count($this->couriers) > 0):?>
+			<?php foreach ($this->couriers as $oCourier): ?>
+			<tr>
+				<td><?php echo $oCourier->user_id; ?></td>
+				<td><?php echo $oCourier->user_login; ?></td>
+				<td><?php echo $oCourier->user_name; ?></td>
+				<td><a href="mailto:<?php echo $oCourier->user_email; ?>"><?php echo $oCourier->user_email; ?></a></td>
+				<td><a href="tel:<?php echo $oCourier->user_phone; ?>"><?php echo $oCourier->user_phone; ?></a></td>
+			</tr>
+			<?php endforeach; ?>
+		<?php else: ?>
+			<tr>
+				<td colspan="6" style="text-align: center;">
+					Brak danych spełniających zadane kryteria
+				</td>
+			</tr>
+		<?php endif; ?>
+		</tbody>
+	</table>
+</div>
