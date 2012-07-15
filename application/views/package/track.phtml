@@ -67,16 +67,10 @@
 		<h3>Historia przesyłki</h3>
 		<?php foreach ($this->package_log as $oPackageLog): ?>
 			<div class="well">
+				<?php if ('delivered' == $oPackageLog->package_log_type): ?>
+				<div class="pull-right alert alert-success"><span style="text-align: center; font-size: 3em; vertical-align: middle;">&#10004;</span>Zlecenie zakończone</div>
+				<?php endif; ?>
 				<h4><?php echo constant('Model_Package::STATE_' . $oPackageLog->package_log_type); ?></h4>
-				<!-- 
-				<?php if ('created' == $oPackageLog->package_log_type): ?>
-					<h4>Zlecenie utworzone w systemie TranSys</h4>
-				<?php endif; ?>
-				
-				<?php if ('pick_error' == $oPackageLog->package_log_type): ?>
-					<h4>Problem odbioru przesyłki od zleceniodawcy</h4>
-				<?php endif; ?>
-				 -->
 				 
 				<?php if ($oPackageLog->user_name): ?>
 				<p>Zaktualizowane przez: <strong><?php echo $oPackageLog->user_name; ?></strong></p>
