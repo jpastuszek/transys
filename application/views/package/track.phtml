@@ -15,13 +15,7 @@
 <div class="row">
 	<h3 class="span12">
 		<span style="font-weight: normal;">Stan przesyłki:</span>
-		<?php if ('created' == $this->package->package_state): ?>
-		Zlecenie utworzone w systemie TranSys
-		<?php endif; ?>
-		<?php if ('pick_error' == $this->package->package_state): ?>
-		Problem odbioru od zleceniodawcy
-		<?php endif; ?>
-		
+		<?php echo constant('Model_Package::STATE_' . $this->package->package_state); ?>
 	</h3>
 </div>
 <p>&nbsp;</p>
