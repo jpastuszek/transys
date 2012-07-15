@@ -209,7 +209,29 @@ class Controller_Admin extends App_Controller {
 	
 	public function reportsAction()
 	{
-		$this->view->setView('admin/noperms.phtml');
+			$oRequest = App_Request::getInstance();
+		
+		if ('admin' == App_Auth::getInstance()->getIdentity()->user_type) {
+			
+			$oClientModel = new Model_Client();
+			$oUserModel = new Model_User();
+			$oPackageModel = new Model_Package();
+			
+			$this->view->couriers = count($oUserModel->setOption('type', 'courier')->getList());
+			$this->view->admins = count($oUserModel->setOption('type', 'admin')->getList());
+			
+			$this->view->clients = count($oClientModel->getList());
+			
+			$this->view->packages_total = count($oPackageModel->getList());
+			$this->view->packages_new = count($oPackageModel->setOption('type', 'new')->getList());
+			$this->view->packages_delivered = count($oPackageModel->setOption('type', 'complete')->getList());
+			
+			
+			
+		} else {
+			$this->view->setView('admin/noperms.phtml');
+		}
+		
 	}
 	
 }
